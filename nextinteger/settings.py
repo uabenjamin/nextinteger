@@ -113,11 +113,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'api.User'
+
+AUTHENTICATION_BACKENDS = [
+    # 'social_core.backends.linkedin.LinkedinOAuth2',
+    # 'social_core.backends.instagram.InstagramOAuth2',
+    # 'social_core.backends.facebook.FacebookOAuth2',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'TokenAuthentication'
+        'api.authentication.BearerTokenAuthentication'
     ]
 }
 

@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from api.views import SignUpView, get_current, get_next, reset, api_key
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('signup/', SignUpView.as_view()),
+    path('current/', get_current),
+    path('next/', get_next),
+    path('reset/', reset),
+    path('apikey/', api_key),
 ]
