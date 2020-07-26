@@ -23,7 +23,8 @@ class UserCreateSerializer(serializers.ModelSerializer):
         # We need to use set_password to hash the password, otherwise, BasicAuthentication won't work.
         user.set_password(validated_data["password"])
         user.save()
-        token = Token.objects.create(user=user)
+        # token = Token.objects.create(user=user)
+        token = Token.objects.get(user=user)
         user.api_key = token.key
         return user
 

@@ -83,7 +83,6 @@ def signin(request, format=None):
 @api_view(["POST"])
 @permission_classes([permissions.AllowAny])
 def social_signin(request, format=None):
-    print(request.data)
     access_token = request.data["access_token"]
     email = request.data["email"]
     matching_users = SocialAuthUser.objects.filter(email=email)
@@ -93,10 +92,9 @@ def social_signin(request, format=None):
     else:
         user = UserModel.objects.create(email=email, password=access_token[:10])
         user.save()
-        token = Token.objects.create(user=user)
-        token.save()
+        token = Token.objects.get(user=user)
         auth_user = SocialAuthUser.objects.create(
-            access_token=access_token, provider=request.data["provider"], user=user
+            email=email, provider=request.data["provider"], user=user
         )
         auth_user.save()
     return Response({"api_key": token.key, "current": auth_user.user.value})
