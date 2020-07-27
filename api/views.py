@@ -98,3 +98,8 @@ def social_signin(request, format=None):
         )
         auth_user.save()
     return Response({"api_key": token.key, "current": auth_user.user.value})
+
+@api_view(["GET"])
+@permission_classes([permissions.AllowAny])
+def health_check(request, format=None):
+    return Response()

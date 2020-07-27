@@ -24,6 +24,7 @@ from api.views import (
     api_key,
     signin,
     social_signin,
+    health_check,
 )
 
 urlpatterns = [
@@ -35,4 +36,5 @@ urlpatterns = [
     path("apikey/", api_key),
     path("signin/", signin),
     path("social/signin/", social_signin),
+    path("", health_check),
 ]
