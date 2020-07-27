@@ -25,7 +25,7 @@ SECRET_KEY = "2@zv)z6*2ok)1f!8$iy&f_8&l*(^^5xwuia8x2a#zf2_^n7gwv"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'nextinteger-api.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
