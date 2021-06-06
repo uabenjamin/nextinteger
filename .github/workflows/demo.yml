@@ -45,6 +45,6 @@ jobs:
       - name: Execute command to run database migration
         shell: bash
         run: |
-          apt-get install expect 
+          sudo apt-get install expect 
           opstaskarn=`echo $(aws ecs list-tasks --cluster dev-finvera-app --service-name dev-finvera-ops | jq -r ".taskArns[0]")`
           unbuffer aws ecs execute-command --cluster dev-finvera-app --command "./manage.py showmigrations" --task $opstaskarn --interactive
