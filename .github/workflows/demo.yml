@@ -34,3 +34,17 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Execute command to run database migration
+        shell: bash
+        run: |
+          echo "AWS_ENV=dev" >> $GITHUB_ENV
+          opstaskarn=`echo $(aws ecs list-tasks --cluster ${{ AWS_ENV }}-finvera-app --service-name ${{ AWS_ENV }}-finvera-ops | jq -r ".taskArns[0]")`
+          aws ecs execute-command --cluster ${{ AWS_ENV }}-finvera-app --command "./manage.py showmigrations" --task $opstaskarn --interactive
