@@ -45,6 +45,5 @@ jobs:
       - name: Execute command to run database migration
         shell: bash
         run: |
-          echo "AWS_ENV=dev" >> $GITHUB_ENV
-          opstaskarn=`echo $(aws ecs list-tasks --cluster ${{ AWS_ENV }}-finvera-app --service-name ${{ AWS_ENV }}-finvera-ops | jq -r ".taskArns[0]")`
-          aws ecs execute-command --cluster ${{ AWS_ENV }}-finvera-app --command "./manage.py showmigrations" --task $opstaskarn --interactive
+          opstaskarn=`echo $(aws ecs list-tasks --cluster dev-finvera-app --service-name dev-finvera-ops | jq -r ".taskArns[0]")`
+          aws ecs execute-command --cluster dev-finvera-app --command "./manage.py showmigrations" --task $opstaskarn --interactive
